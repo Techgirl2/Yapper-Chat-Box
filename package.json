@@ -1,0 +1,41 @@
+{
+  "name": "take_home_assgn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Techgirl2/take_home_assgn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Techgirl2/take_home_assgn/issues"
+  },
+  "homepage": "https://github.com/Techgirl2/take_home_assgn#readme",
+  "dependencies": {
+    "@prisma/client": "^7.9.1",
+    "bcryptjs": "^3.0.3",
+    "next": "^16.3.1",
+    "next-auth": "^4.24.15",
+    "pg": "^8.23.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "prisma": "^7.9.1",
+    "typescript": "^7.0.2"
+  }
+}
