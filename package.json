@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Techgirl2/take_home_assgn#readme",
   "dependencies": {
-    "@prisma/client": "^7.9.1",
+    "@prisma/client": "^5.22.0",
     "bcryptjs": "^3.0.3",
     "next": "^16.3.1",
     "next-auth": "^4.24.15",
@@ -35,7 +35,7 @@
   "devDependencies": {
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
-    "prisma": "^7.9.1",
+    "prisma": "^5.22.0",
     "typescript": "^7.0.2"
   }
 }
