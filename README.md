@@ -2,6 +2,8 @@
 
 A full-stack chat application with user authentication and Claude AI integration.
 
+**Live Demo:** https://take-home-assgn.vercel.app/
+
 ## Tech Stack
 
 - Next.js (App Router)
