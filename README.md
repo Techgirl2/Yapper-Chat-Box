@@ -1,40 +1,72 @@
-Tevora Associate Developer Take-Home
+# Tevora Chat - AI Chat Application
 
-This repo scaffolds a Next.js (App Router) + Prisma project for the AI chat assignment.
+A full-stack chat application with user authentication and Claude AI integration.
 
-What this scaffold includes:
-- Next.js app skeleton (App Router)
-- Prisma schema for User, Chat and Message (Postgres datasource)
-- .env.example listing required environment variables
-- Basic dependencies installed (next, react, prisma, @prisma/client, next-auth, pg)
+## Tech Stack
 
-What you'll still implement (guided steps below):
-1) Authentication (NextAuth / Auth.js): set up providers or Credentials provider.
-2) Prisma migrations: run prisma migrate to create tables in Postgres.
-3) Chat UI: build a simple interface under /app that posts to a server-side API.
-4) Claude integration: server-side API route that calls Anthropic/Claude using CLAUDE_API_KEY.
-5) Persist messages to Prisma so chat history is stored per-user.
+- Next.js (App Router)
+- PostgreSQL + Prisma ORM
+- NextAuth.js (authentication)
+- Anthropic Claude API
 
-Quick start (local)
-1. Copy .env.example to .env and fill in values (DATABASE_URL, NEXTAUTH_SECRET, CLAUDE_API_KEY, NEXTAUTH_URL).
-2. Install deps: npm install
-3. Initialize Prisma client and run migration:
-   - npx prisma generate
-   - npx prisma migrate dev --name init
-4. Start dev server: npm run dev (you may want to add a script in package.json: "dev": "next dev")
+## Setup
 
-Notes and decisions
-- Database: Prisma + Postgres (preferred). If you don't have Postgres locally, use a Postgres docker image or switch the datasource to SQLite for quick prototyping.
-- Auth: this scaffold targets NextAuth/Auth.js (Next.js integration). The README and code will walk through wiring the API route.
-- Model: the data model is intentionally minimal (User, Chat, Message) so chat history can be queried per user.
+1. **Clone and install:**
+   ```bash
+   git clone <repo-url>
+   cd take_home_assgn
+   npm install
+   ```
 
-Next actions (I can help step-by-step):
-- Wire NextAuth (API route, providers, session callbacks).
-- Add the server-side Claude API endpoint and a minimal client-side chat UI.
-- Add migrations and test end-to-end locally.
+2. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Fill in `.env`:
+   - `DATABASE_URL` — PostgreSQL connection string
+   - `CLAUDE_API_KEY` — Get from https://console.anthropic.com
+   - `NEXTAUTH_SECRET` — Run `openssl rand -base64 32`
+   - `NEXTAUTH_URL` — `http://localhost:3000` (local) or your deployed URL
 
-If you'd like to proceed, pick the next task you'd like help with:
-- "Wire Auth (NextAuth) with Credentials provider"
-- "Add Prisma migrations and seed script"
-- "Create server-side Claude API route"
-- "Implement chat UI (App Router)"
+3. **Start Docker (if using local Postgres):**
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Run migrations:**
+   ```bash
+   npx prisma migrate deploy
+   ```
+
+5. **Start dev server:**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open http://localhost:3000 and sign up!**
+
+## Features
+
+- User sign up/login/logout
+- Chat with Claude AI
+- Persistent chat history per user
+- Server-side API (secrets never exposed to client)
+
+## Key Decisions
+
+- Used direct HTTP fetch to Claude API instead of SDK (works better in remote environments like Codespace)
+- One chat per user (simplified model for take-home)
+- No streaming (simpler implementation)
+- JWT sessions for stateless auth
+
+## Deployment
+
+Deploy to Vercel:
+1. Push code to GitHub
+2. Create Vercel Postgres database
+3. Update DATABASE_URL in `.env` with Vercel connection string
+4. Run `npx prisma migrate deploy`
+5. Import repo to Vercel, add env variables, deploy
+
+For full deployment steps, see comments in `.env.example`.
