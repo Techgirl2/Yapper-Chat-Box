@@ -2,7 +2,7 @@
 
 A full-stack chat application with user authentication and Claude AI integration.
 
-**Live Demo:** https://take-home-assgn.vercel.app/
+**Live Demo:** https://yapper-chatbox.vercel.app/
 
 ## Tech Stack
 
