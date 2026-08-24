@@ -55,13 +55,6 @@ A full-stack chat application with user authentication and Claude AI integration
 - Persistent chat history per user
 - Server-side API (secrets never exposed to client)
 
-## Key Decisions
-
-- Used direct HTTP fetch to Claude API instead of SDK (works better in remote environments like Codespace)
-- One chat per user (simplified model for take-home)
-- No streaming (simpler implementation)
-- JWT sessions for stateless auth
-
 ## Deployment
 
 Deploy to Vercel:
