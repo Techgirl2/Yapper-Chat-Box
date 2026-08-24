@@ -29,6 +29,7 @@ function ChatContent() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSidebarLoading, setIsSidebarLoading] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Redirect to login if not authenticated
@@ -270,12 +271,21 @@ function ChatContent() {
   return (
     <div className={styles.pageContainer}>
       {/* Sidebar */}
-      <div className={styles.sidebar}>
+      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
         <div className={styles.sidebarHeader}>
           <h2>Chats</h2>
-          <button onClick={createNewChat} className={styles.newChatBtn} title="New Chat">
-            +
-          </button>
+          <div className={styles.sidebarControls}>
+            <button onClick={createNewChat} className={styles.newChatBtn} title="New Chat">
+              +
+            </button>
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className={styles.closeSidebarBtn}
+              title="Close sidebar"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         <div className={styles.chatsList}>
@@ -314,6 +324,13 @@ function ChatContent() {
       {/* Main Chat Area */}
       <div className={styles.container}>
         <div className={styles.header}>
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className={styles.hamburgerBtn}
+            title="Toggle sidebar"
+          >
+            ☰
+          </button>
           <h1>Chat with Claude</h1>
           <div className={styles.userInfo}>
             <span>{session?.user?.email}</span>
