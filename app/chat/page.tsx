@@ -159,6 +159,7 @@ function ChatContent() {
 
   // Switch to a different chat
   const switchChat = (newChatId: string) => {
+    setIsSidebarOpen(false);
     router.push(`/chat?id=${newChatId}`);
   };
 
@@ -319,7 +320,17 @@ function ChatContent() {
             ))
           )}
         </div>
+
+        {/* Sidebar Footer */}
+        <div className={styles.sidebarFooter}>
+          <div className={styles.userEmail}>{session?.user?.email}</div>
+          <button onClick={handleLogout} className={styles.logoutBtnSidebar}>
+            Logout
+          </button>
+        </div>
       </div>
+
+      {/* Sidebar Footer - moved inside above and will be part of sidebar flex */}
 
       {/* Main Chat Area */}
       <div className={styles.container}>
