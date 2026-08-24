@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { message } = await request.json();
+    const { message, chatId } = await request.json();
 
     if (!message || typeof message !== "string") {
       return NextResponse.json(
@@ -30,18 +30,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get or create the user's chat
-    let chat = await prisma.chat.findFirst({
-      where: { userId: session.user.id },
+    if (!chatId || typeof chatId !== "string") {
+      return NextResponse.json(
+        { error: "Chat ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Get the specific chat
+    const chat = await prisma.chat.findUnique({
+      where: { id: chatId }
     });
 
     if (!chat) {
-      chat = await prisma.chat.create({
-        data: {
-          userId: session.user.id,
-          title: "Chat",
-        },
-      });
+      return NextResponse.json(
+        { error: "Chat not found" },
+        { status: 404 }
+      );
+    }
+
+    // Verify chat belongs to user
+    if (chat.userId !== session.user.id) {
+      return NextResponse.json(
+        { error: "Forbidden" },
+        { status: 403 }
+      );
     }
 
     // Save user message to database

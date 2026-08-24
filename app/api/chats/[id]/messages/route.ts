@@ -5,9 +5,11 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    // Get current user's session
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
@@ -17,20 +19,11 @@ export async function GET(request: Request) {
       );
     }
 
-    // Get chatId from query params
-    const url = new URL(request.url);
-    const chatId = url.searchParams.get("chatId");
+    const { id } = await params;
 
-    if (!chatId) {
-      return NextResponse.json(
-        { error: "Chat ID is required" },
-        { status: 400 }
-      );
-    }
-
-    // Get the specific chat
+    // Verify chat belongs to user
     const chat = await prisma.chat.findUnique({
-      where: { id: chatId }
+      where: { id }
     });
 
     if (!chat) {
@@ -40,7 +33,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // Verify chat belongs to user
     if (chat.userId !== session.user.id) {
       return NextResponse.json(
         { error: "Forbidden" },
@@ -50,14 +42,14 @@ export async function GET(request: Request) {
 
     // Fetch all messages for this chat
     const messages = await prisma.message.findMany({
-      where: { chatId: chat.id },
+      where: { chatId: id },
       orderBy: { createdAt: "asc" },
       select: {
         id: true,
         role: true,
         content: true,
         createdAt: true,
-      },
+      }
     });
 
     return NextResponse.json({ messages });

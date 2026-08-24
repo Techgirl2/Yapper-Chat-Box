@@ -3,7 +3,7 @@ import { Providers } from "@/lib/providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tevora Chat",
+  title: "Yapper - Chat with Claude",
   description: "AI chat application",
 };
 

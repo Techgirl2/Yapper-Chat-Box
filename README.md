@@ -1,4 +1,4 @@
-# Tevora Chat - AI Chat Application
+# Yapper - AI Chat Application
 
 A full-stack chat application with user authentication and Claude AI integration.
 
